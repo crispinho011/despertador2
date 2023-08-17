@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Despertador</title>
+</head>
+<body>
+  <h1>Despertador</h1>
+  <p>Defina a hora do despertador:</p>
+  <input type="time" id="alarmTime">
+  <button onclick="setAlarm()">Definir Despertador</button>
+
+  <script>
+    function setAlarm() {
+      const alarmTimeInput = document.getElementById("alarmTime");
+      const alarmTime = alarmTimeInput.value;
+
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+
+      const [alarmHours, alarmMinutes] = alarmTime.split(":");
+      
+      if (alarmHours < hours || (alarmHours == hours && alarmMinutes <= minutes)) {
+        alert("Hora inválida. Por favor, selecione um horário futuro.");
+        return;
+      }
+
+      const alarmMilliseconds = (alarmHours - hours) * 60 * 60 * 1000 + (alarmMinutes - minutes) * 60 * 1000;
+
+      setTimeout(() => {
+        alert("Hora de acordar!");
+      }, alarmMilliseconds);
+      
+      alert(`Despertador definido para ${alarmTime}.`);
+    }
+  </script>
+</body>
+</html>
