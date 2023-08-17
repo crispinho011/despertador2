@@ -10,28 +10,42 @@
   <button onclick="setAlarm()">Definir Despertador</button>
 
   <script>
+    //Obtém o valor inserido pelo usuário no campo de entrada de hora do despertador.
     function setAlarm() {
+        //Esse elemento é geralmente um campo de entrada onde o usuário define o horário do despertador.
       const alarmTimeInput = document.getElementById("alarmTime");
+      // nos permite interagir com esse elemento posteriormente em nosso código. Geralmente, o elemento com o atributo "id" "alarmTime" seria um campo de entrada onde o usuário define a hora do despertador.
       const alarmTime = alarmTimeInput.value;
+      //Estamos pegando o valor que o usuário inseriu no campo de entrada de hora do despertador e armazenando esse valor na variável alarmTime. Isso nos permitirá usar esse valor em nosso código posteriormente.
 
       const now = new Date();
+      //Esse objeto representa o momento exato atual, incluindo a data e a hora do sistema. Estamos guardando essa informação na variável now para utilizá-la em nosso código posteriormente.
       const hours = now.getHours();
+      //obtendo a hora atual do objeto de data e hora que criamos anteriormente (now) e guardando esse valor na variável hours. Essa variável conterá apenas a parte da hora do momento atual.
       const minutes = now.getMinutes();
+      //pegando os minutos atuais do objeto de data e hora (now) que foi criado anteriormente, e armazenando esse valor na variável minutes. Isso nos dá a parte dos minutos do momento atual.
 
       const [alarmHours, alarmMinutes] = alarmTime.split(":");
+      //conterá a parte das horas do horário definido pelo usuário, e alarmMinutes conterá a parte dos minutos. Isso nos permite utilizar esses valores para comparar com o horário atual e configurar o despertador.
       
       if (alarmHours < hours || (alarmHours == hours && alarmMinutes <= minutes)) {
-        alert("Hora inválida. Por favor, selecione um horário futuro.");
+        //Em resumo, essa linha de código verifica se o horário definido no despertador é anterior ou igual ao horário atual, levando em consideração tanto as horas quanto os minutos.
         return;
+        //Nesse contexto, o return; é uma instrução que encerra a função imediatamente. Isso significa que, se essa linha for executada, a função em que está contida terminará ali, e nenhum código abaixo dessa linha dentro da mesma função será executado.
       }
 
       const alarmMilliseconds = (alarmHours - hours) * 60 * 60 * 1000 + (alarmMinutes - minutes) * 60 * 1000;
+      //calculando a diferença de tempo entre o horário definido pelo usuário e o horário atual em milissegundos. Isso nos permitirá configurar um temporizador para acionar o alerta no momento correto.
 
       setTimeout(() => {
+        // estamos usando a função setTimeout() para agendar uma ação a ser executada após um certo intervalo de tempo.
         alert("Hora de acordar!");
+        //Esta linha exibe um alerta na página com o texto "Hora de acordar!". O alerta é uma janela de pop-up que aparece no navegador para notificar o usuário.
       }, alarmMilliseconds);
+      //Nesse trecho, estamos fechando a função anônima que foi passada como argumento para o setTimeout(). A parte , alarmMilliseconds está definindo o intervalo de tempo (em milissegundos) após o qual a função anônima será executada.
       
       alert(`Despertador definido para ${alarmTime}.`);
+      //exibindo um alerta na página que mostra uma mensagem contendo o horário que o usuário definiu para o despertador.
     }
   </script>
 </body>
